@@ -29,11 +29,11 @@
 function getFizzBuzz(num) {
   if (num % 3 === 0 && num % 5 === 0) {
     return 'FizzBuzz';
-  } else if (num % 5 === 0) {
+  } if (num % 5 === 0) {
     return 'Buzz';
-  } else if (num % 3 === 0) {
+  } if (num % 3 === 0) {
     return 'Fizz';
-  } else return num;
+  } return num;
 }
 
 /**
@@ -130,11 +130,10 @@ function isTriangle(a, b, c) {
  *
  */
 function doRectanglesOverlap(rect1, rect2) {
-  const noOverlap =
-      rect1.left + rect1.width <= rect2.left ||  
-      rect2.left + rect2.width <= rect1.left ||  
-      rect1.top + rect1.height <= rect2.top ||   
-      rect2.top + rect2.height <= rect1.top;  
+  const noOverlap = rect1.left + rect1.width <= rect2.left
+      || rect2.left + rect2.width <= rect1.left
+      || rect1.top + rect1.height <= rect2.top
+      || rect2.top + rect2.height <= rect1.top;
   return !noOverlap;
 }
 
@@ -166,8 +165,7 @@ function doRectanglesOverlap(rect1, rect2) {
  */
 function isInsideCircle(circle, point) {
   const distance = Math.sqrt(
-      Math.pow(point.x - circle.center.x, 2) +
-      Math.pow(point.y - circle.center.y, 2)
+    (point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2,
   );
   return distance < circle.radius;
 }
@@ -300,15 +298,14 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-  let total = String(num)
+  const total = String(num)
     .split('')
     .map((item) => Number(item))
     .reduce((acc, cur) => acc + cur, 0);
   if (total > 9) {
     return getDigitalRoot(total);
-  } else {
-    return total;
   }
+  return total;
 }
 
 /**
@@ -335,14 +332,14 @@ function getDigitalRoot(num) {
 function isBracketsBalanced(str) {
   const OPEN_BRACK = ['[', '(', '{', '<'];
   const BRACK_PAIR = {
-    [']']: '[',
-    [')']: '(',
-    ['}']: '{',
-    ['>']: '<',
+    ']': '[',
+    ')': '(',
+    '}': '{',
+    '>': '<',
   };
-  let stack = [];
+  const stack = [];
   for (let i = 0; i < str.length; i++) {
-    let currentSymbol = str[i];
+    const currentSymbol = str[i];
 
     if (OPEN_BRACK.includes(currentSymbol)) {
       stack.push(currentSymbol);
@@ -350,7 +347,7 @@ function isBracketsBalanced(str) {
       if (stack.length === 0) {
         return false;
       }
-      let topElement = stack[stack.length - 1];
+      const topElement = stack[stack.length - 1];
 
       if (BRACK_PAIR[currentSymbol] === topElement) {
         stack.pop();
@@ -403,7 +400,7 @@ function getCommonDirectoryPath(pathes) {
   let step = 0;
   let total = '';
   while (flag) {
-    let subStr = [];
+    const subStr = [];
     for (let i = 0; i < pathes.length; i++) {
       subStr.push(pathes[i][step]);
     }
@@ -413,9 +410,10 @@ function getCommonDirectoryPath(pathes) {
     } else {
       flag = false;
       if (total.length === 0) return '';
-      else return total.slice(0, total.lastIndexOf('/') + 1);
+      return total.slice(0, total.lastIndexOf('/') + 1);
     }
   }
+  return total.slice(0, total.lastIndexOf('/') + 1);
 }
 
 /**
@@ -437,10 +435,10 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-  let rows1 = m1.length;
-  let cols1 = m1[0].length;
-  let cols2 = m2[0].length;
-  let m3 = new Array(rows1).fill(0).map(() => new Array(cols2).fill(0));
+  const rows1 = m1.length;
+  const cols1 = m1[0].length;
+  const cols2 = m2[0].length;
+  const m3 = new Array(rows1).fill(0).map(() => new Array(cols2).fill(0));
   for (let i = 0; i < rows1; i++) {
     for (let j = 0; j < cols2; j++) {
       for (let k = 0; k < cols1; k++) {
@@ -484,10 +482,10 @@ function getMatrixProduct(m1, m2) {
  */
 function evaluateTicTacToePosition(position) {
   for (let i = 0; i < position.length; i++) {
-    let rows = [];
-    let cols = [];
-    let diag = [];
-    let revDiag = [];
+    const rows = [];
+    const cols = [];
+    const diag = [];
+    const revDiag = [];
     for (let j = 0; j < position.length; j++) {
       rows.push(position[i][j]);
       cols.push(position[j][i]);
@@ -495,26 +493,26 @@ function evaluateTicTacToePosition(position) {
       revDiag.push(position[j][position.length - 1 - j]);
     }
     if (
-      rows.filter((item) => item !== rows[0]).length === 0 &&
-      rows[0] !== undefined
+      rows.filter((item) => item !== rows[0]).length === 0
+      && rows[0] !== undefined
     ) {
       return rows[0];
     }
     if (
-      cols.filter((item) => item !== cols[0]).length === 0 &&
-      cols[0] !== undefined
+      cols.filter((item) => item !== cols[0]).length === 0
+      && cols[0] !== undefined
     ) {
       return cols[0];
     }
     if (
-      diag.filter((item) => item !== diag[0]).length === 0 &&
-      diag[0] !== undefined
+      diag.filter((item) => item !== diag[0]).length === 0
+      && diag[0] !== undefined
     ) {
       return diag[0];
     }
     if (
-      revDiag.filter((item) => item !== revDiag[0]).length === 0 &&
-      revDiag[0] !== undefined
+      revDiag.filter((item) => item !== revDiag[0]).length === 0
+      && revDiag[0] !== undefined
     ) {
       return revDiag[0];
     }

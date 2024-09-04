@@ -70,7 +70,7 @@ function getAverage(value1, value2) {
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
   return Math.sqrt(
-    Math.pow(Math.abs(x2 - x1), 2) + Math.pow(Math.abs(y2 - y1), 2)
+    Math.abs(x2 - x1) ** 2 + Math.abs(y2 - y1) ** 2,
   );
 }
 
@@ -110,8 +110,8 @@ function getLinearEquationRoot(a, b) {
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
   return Math.acos(
-    x1 * x2 +
-      (y1 * y2) / (Math.sqrt(x1 * x1 + y1 * y1) * Math.sqrt(x2 * x2 + y2 * y2))
+    x1 * x2
+      + (y1 * y2) / (Math.sqrt(x1 * x1 + y1 * y1) * Math.sqrt(x2 * x2 + y2 * y2)),
   );
 }
 
@@ -181,7 +181,7 @@ function getParallelepipedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-  return Math.round(num / Math.pow(10, pow)) * Math.pow(10, pow);
+  return Math.round(num / 10 ** pow) * 10 ** pow;
 }
 
 /**
@@ -229,7 +229,8 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  return isFinite(value) ? Number(value) : def;
+  const num = Number(value);
+  return Number.isFinite(num) ? num : def;
 }
 
 module.exports = {

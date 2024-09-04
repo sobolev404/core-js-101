@@ -38,8 +38,8 @@ function generateOdds(len) {
   let temp = 0;
   return Array(len)
     .fill(1)
-    .map((item) => {
-      item += temp;
+    .map(() => {
+      const item = temp + 1;
       temp += 2;
       return item;
     });
@@ -236,11 +236,11 @@ function toArrayOfSquares(arr) {
 function getMovingSum(arr) {
   let total = 0;
   return arr.map((item) => {
-    item += total;
-    total = item;
-    return item;
+    total += item;
+    return total;
   });
 }
+
 
 /**
  * Returns every second item from the specified array:
@@ -494,12 +494,9 @@ function getIdentityMatrix(n) {
 function getIntervalArray(start, end) {
   return Array(end - start + 1)
     .fill()
-    .map((item) => {
-      item = start;
-      start += 1;
-      return item;
-    });
+    .map((_, index) => start + index);
 }
+
 
 /**
  * Returns array containing only unique values from the specified array.

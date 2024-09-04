@@ -201,8 +201,8 @@ function extractEmails(str) {
 function getRectangleString(width, height) {
   let str = '';
 
-  for (let i = 0; i < height; i++) {
-    for (let j = 0; j < width; j++) {
+  for (let i = 0; i < height; i += 1) {
+    for (let j = 0; j < width; j += 1) {
       if (i === 0 && j === 0) {
         str += '┌';
       } else if (i === 0 && j === width - 1) {
@@ -245,14 +245,12 @@ function encodeToRot13(str) {
   return str
     .split('')
     .map((char) => {
-      let charCode = char.charCodeAt(0);
+      const charCode = char.charCodeAt(0);
       if (charCode >= 65 && charCode <= 90) {
         return String.fromCharCode(((charCode - 65 + 13) % 26) + 65);
-      } else if (charCode >= 97 && charCode <= 122) {
+      } if (charCode >= 97 && charCode <= 122) {
         return String.fromCharCode(((charCode - 97 + 13) % 26) + 97);
-      } else {
-        return char;
-      }
+      } return char;
     })
     .join('');
 }
