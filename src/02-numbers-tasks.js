@@ -7,6 +7,7 @@
  *                                                                                           *
  ******************************************************************************************* */
 
+
 /**
  * Returns an area of a rectangle given by width and height.
  *
@@ -22,6 +23,7 @@ function getRectangleArea(width, height) {
   return width * height;
 }
 
+
 /**
  * Returns a circumference of circle given by radius.
  *
@@ -34,7 +36,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCircleCircumference(radius) {
-  return Math.PI * 2 * radius;
+  return radius * 2 * Math.PI;
 }
 
 /**
@@ -50,7 +52,8 @@ function getCircleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  return value1 / 2 + value2 / 2;
+  const sum = value1 + value2;
+  return sum > Number.MAX_VALUE ? Number.MAX_VALUE : sum / 2;
 }
 
 /**
@@ -69,13 +72,11 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-  return Math.sqrt(
-    Math.abs(x2 - x1) ** 2 + Math.abs(y2 - y1) ** 2,
-  );
+  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
 }
 
 /**
- * Returns a root of linear equation a*x + b = 0 given by coefficients a and b.
+ * Returns a root of linear equation Math.sqrt given by coefficients a and b.
  *
  * @param {number} a
  * @param {number} b
@@ -89,6 +90,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
 function getLinearEquationRoot(a, b) {
   return -b / a;
 }
+
 
 /**
  * Returns an angle (in radians) between two vectors given by xi and yi,
@@ -109,10 +111,9 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  return Math.acos(
-    x1 * x2
-      + (y1 * y2) / (Math.sqrt(x1 * x1 + y1 * y1) * Math.sqrt(x2 * x2 + y2 * y2)),
-  );
+  const numerator = x1 * x2 + y1 * y2;
+  const denominator = Math.sqrt(x1 ** 2 + y1 ** 2) * Math.sqrt(x2 ** 2 + y2 ** 2);
+  return Math.acos(numerator / denominator);
 }
 
 /**
@@ -128,8 +129,10 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  return value % 10;
+  const denominator = 10 ** (value.toString().length - 1 === 0 ? 1 : value.toString().length - 1);
+  return value % denominator;
 }
+
 
 /**
  * Returns a number by given string representation.
@@ -143,7 +146,7 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-  return Number(value);
+  return parseFloat(value);
 }
 
 /**
@@ -160,8 +163,9 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelepipedDiagonal(a, b, c) {
-  return Math.sqrt(a * a + b * b + c * c);
+  return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
 }
+
 
 /**
  * Returns the number rounded to specified power of 10.
@@ -181,7 +185,8 @@ function getParallelepipedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-  return Math.round(num / 10 ** pow) * 10 ** pow;
+  const specifiedPower = 10 ** pow;
+  return Math.round(num / specifiedPower) * specifiedPower;
 }
 
 /**
@@ -189,7 +194,7 @@ function roundToPowerOfTen(num, pow) {
  * See: https://en.wikipedia.org/wiki/Primality_test
  *
  * @param {number} n
- * @return {bool}
+ * @return {boolean}
  *
  * @example:
  *   4 => false
@@ -202,13 +207,11 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-  if (n < 2) {
-    return false;
-  }
-  for (let i = 2; i <= Math.sqrt(n); i++) {
-    if (n % i === 0) {
-      return false;
-    }
+  if (n <= 1) return false;
+  if (n === 2) return true;
+  if (n % 2 === 0) return false;
+  for (let i = 3; i <= Math.sqrt(n); i += 2) {
+    if (n % i === 0) return false;
   }
   return true;
 }
@@ -229,8 +232,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  const num = Number(value);
-  return Number.isFinite(num) ? num : def;
+  return Number.isNaN(+value) ? def : +value;
 }
 
 module.exports = {
